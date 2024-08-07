@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 export default function Top() {
 
@@ -13,17 +14,36 @@ export default function Top() {
     navigate('/initTeamSearch');
   }
 
-  const onLogin = () => {
-    navigate('/login');
-};
-
-const onLogout = () => {
-  navigate('/login');
-};
+  const onMy = () =>{
+    navigate('/myPage');
+  }
 
   return (
-    <div>
-
-    </div>
-  )
+    <Header>
+      <Title onClick={onHome}>League</Title>
+      <SearchPage onClick={onSearch}>Search</SearchPage>
+      <MyPage onClick={onMy}>MyPage</MyPage>
+    </Header>
+  );
 }
+
+const Header = styled.div`
+  height: 20%;
+  background-color:pink;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Title = styled.h2`
+  cursor: pointer
+`;
+
+const SearchPage = styled.h2`
+  cursor: pointer
+`;
+
+const MyPage = styled.h2`
+  cursor: pointer
+`;
