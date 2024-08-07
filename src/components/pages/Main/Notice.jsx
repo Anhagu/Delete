@@ -1,11 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import Notice from './Notice';
 
 export default function Notice() {
   return (
     <div>
-      <h3>공지사항</h3>
       <NoticePage>
         <NoticeNum>1</NoticeNum>
         <NoticeList>
@@ -19,18 +17,23 @@ export default function Notice() {
 }
 
 const NoticePage = styled.div`
+    margin-top: 20px;
     height: 100%;
     display: flex;
-    background-color: skyblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `
 
 const NoticeNum = styled.h4`
     font-style : bold;
     width: 10%;
-    background-color: pink;
+    
 `
 const NoticeList = styled.div`
-    widgh: 70%;
+    width: 70%;
+    border: 1px solid black;
+    margin: 5px;
     background-color:white;
 `
 const Title = styled.h4`
@@ -44,6 +47,7 @@ const Content = styled.p`
 const NoticeBtn = styled.button`
     border : 1px solid grey;
     padding: 5px;
-    width: 40px;
-    heigth: 40px;
+    width: 10%;
+    width: 70px;
+    height: 70px;
 `

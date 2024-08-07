@@ -12,6 +12,10 @@ export default function Main() {
         <Menu />
         <Team  />  
         <Notice /> 
+        <Notice /> 
+        <Notice /> 
+        <Notice /> 
+        <Notice /> 
     </div>
   )
 }

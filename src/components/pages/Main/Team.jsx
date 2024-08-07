@@ -17,10 +17,9 @@ export default function Team() {
 
 const MainTeam = styled.div`
   padding: 5px;
-  background-color: grey;
   margin-top: 20px;
-  height: 40px;
-  line-height: 40px;
+  height: 100px;
+  line-height: 100px;
   display: flex;
   justify-content: space-between;
   text-align: center;
@@ -29,11 +28,9 @@ const MainTeam = styled.div`
 const MyTeam = styled.div`
   width: 40%;
   border: 1px solid black;
-  background-color: white;
 `
 
 const ScheduledGame = styled.div`
   width: 50%;
   border: 1px solid black;
-  background-color: white;
 `

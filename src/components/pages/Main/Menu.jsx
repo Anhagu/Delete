@@ -18,10 +18,11 @@ export default function Menu() {
 
 const MenuContainer = styled.div`
   margin: 0 auto;
+  height: 100px;
 `;
 
 const MenuWrapper = styled.div`
-  padding: 10px 15px 0px 15px;
+  padding: 20px 15px 0px 15px;
 `;
 
 const MenuItem = styled.div`
@@ -35,7 +36,6 @@ const Items = styled.a`
   min-height: 60px;
   line-height: 60px;
   padding: 5px;
-  background-color:orange;
-  color:black;
+  border: 1px solid black;
   text-decoration: none;
 `
