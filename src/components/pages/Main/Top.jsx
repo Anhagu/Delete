@@ -6,7 +6,7 @@ import Logo from '../../../img/Logo.png'
 import { BsSearch } from "react-icons/bs";
 import { BsPerson } from "react-icons/bs";
 
-export default function Top() {
+export default function Top({showSearch = true}) {
 
   const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ export default function Top() {
   };
 
   const onSearch = () => {
-    navigate('/initTeamSearch');
+    navigate('/teamSearch');
   }
 
   const onMy = () =>{
@@ -26,9 +26,11 @@ export default function Top() {
     <Header>
       <LogoImg src={Logo} alt='Logo' onClick={onHome}/>
       <RightTap>
-        <SearchPage onClick={onSearch}>
+        {showSearch && (
+          <SearchPage onClick={onSearch}>
           <BsSearch size="25"/>
         </SearchPage>
+        )}
         <MyPage onClick={onMy}>
           <BsPerson size="30"/>
         </MyPage>
