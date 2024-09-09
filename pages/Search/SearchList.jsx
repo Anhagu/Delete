@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import useSearch from '../../hooks/useSearch';
+import useSearch from '../../src/components/hooks/useSearch';
 
 export default function SearchList() {
 
