@@ -21,6 +21,10 @@
 npm install
 npm install styled-components
 npm install react-router-dom
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @emotion/react @emotion/styled
+npm install @fontsource/roboto
+npm install @mui/icons-material
 ```
 
 ### 6. 테스트 규칙
