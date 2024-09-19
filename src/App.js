@@ -18,7 +18,7 @@ const Router = () => {
 
 export default function App() {
   return (
-    <div className="App" style={{maxWidth:'60%', margin : '0 auto'}}>
+    <div className="App" style={{ margin : '0 auto'}}>
       <Router />
     </div>
   );
