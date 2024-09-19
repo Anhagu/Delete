@@ -19,17 +19,17 @@ export default function Team() {
 const MainTeam = styled.div`
   padding: 5px;
   margin-top: 20px;
-  height: 100px;
+  height: auto;
   display: flex;
   justify-content: space-between;
-  text-align: center;
   align-items: center;
+  gap: 20px;
 
   @media (max-width: 768px) {
-    height: auto;
     flex-direction: column;
     align-items: center;
     line-height: 1.5;
+    gap: 5px;
   }
 `;
 
@@ -43,7 +43,6 @@ const MyTeam = styled.div`
 
   @media (max-width: 1200px) {
     width: 60%;
-    font-size: 20px;
   }
 
   @media (max-width: 768px) {
@@ -69,7 +68,6 @@ const ScheduledGame = styled.div`
 
   @media (max-width: 1200px) {
     width: 60%;
-    font-size: 20px;
   }
 
   @media (max-width: 768px) {

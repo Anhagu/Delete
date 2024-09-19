@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default function MainTeamList({num, title, content}) {
+export default function MainLeagueList({num, title, content}) {
   return (
     <div>
       <NoticePage>
@@ -17,8 +17,11 @@ export default function MainTeamList({num, title, content}) {
 }
 
 const NoticePage = styled.div`
-    margin-top: 20px;
+    position: relative;
+    margin: 0 auto;
+    width: 60%;
     display: flex;
+    top: 60px;
     padding: 10px;
     justify-content: space-between;
     align-items: center;
@@ -27,17 +30,14 @@ const NoticePage = styled.div`
     @media (max-width: 390px) {
       width: 100%;
       margin: 0 auto;
+      padding: 0 auto;
     }
 `;
 
 const NoticeNum = styled.h4`
     font-style : bold;
     width: 10%;
-
-    @media (max-width: 390px) {
-    width: 100%;
     text-align: center;
-  }
 `;
 
 const NoticeList = styled.div`
@@ -47,7 +47,8 @@ const NoticeList = styled.div`
     background-color:white;
 
     @media (max-width: 390px) {
-    width: 100%;
+    width: 70%;
+    
   }
 
 `;
@@ -64,12 +65,12 @@ const Content = styled.p`
 const NoticeBtn = styled.button`
     border : 1px solid grey;
     padding: 5px;
-    width: 70px;
-    height: 70px;
+    width: 10%;
+    height: 60px;
     cursor: pointer;
 
     @media (max-width: 768px) {
-    width: 100px;
-    height: 50px;
+    width: 15%;
+
   }
 `
