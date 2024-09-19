@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import ReturnArrowImg from "../img/free-icon-right-arrow-109617.png"
 
 const ReturnHeader = ({ text }) => {
+    const navigate = useNavigate();
     const handleReturnArrow = () => {
+        navigate(-1); // 이전 페이지로 이동
     };
 
     return (
@@ -21,8 +24,6 @@ const Container = styled.div`
     align-items: center;
     width: 100%;
     text-align: center;
-    /* background-color: red; */
-    /* background-color: #f7f7f7; */
 `;
 
 const ReturnArrow = styled.button`
@@ -32,8 +33,6 @@ const ReturnArrow = styled.button`
     border: none;
     background: url(${ReturnArrowImg}) no-repeat center center;
     background-size: contain;
-    /* background-color: #f2f2f2; */
-    /* background-color: red; */
     cursor: pointer;
 `;
 

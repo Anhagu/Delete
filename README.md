@@ -22,6 +22,7 @@
 ```
 npm install
 npm install styled-components
+npm install react-router-dom
 ```
 
 ### 6. 테스트 규칙
