@@ -1,7 +1,5 @@
 import React from 'react'
 import Top from './Top'
-// import Menu from './Footer'
-// import Notice from './MainLeagueList'
 import AdPage from './AdPage'
 import Calendar from './Calendar'
 import SettingFiled from './SettingFiled'

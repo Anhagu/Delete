@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 
-import car from '../../../slideImg/car.jpeg'
-import crayon from '../../../slideImg/crayon.jpeg'
-import umbrella from '../../../slideImg/umbrella.jpeg'
+import car from '../../slideImg/car.jpeg'
+import crayon from '../../slideImg/crayon.jpeg'
+import umbrella from '../../slideImg/umbrella.jpeg'
 
 import SkipPreviousRoundedIcon from '@mui/icons-material/SkipPreviousRounded';
 import SkipNextRoundedIcon from '@mui/icons-material/SkipNextRounded';
