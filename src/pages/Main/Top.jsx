@@ -1,10 +1,9 @@
+import { AppBar, Box } from '@mui/material';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import SearchIcon from '@mui/icons-material/Search';
+import PersonIcon from '@mui/icons-material/Person';
 
-import Logo from '../../../img/Logo.png'
-import { BsSearch } from "react-icons/bs";
-import { BsPerson } from "react-icons/bs";
 
 export default function Top({showSearch = true}) {
 
@@ -23,50 +22,56 @@ export default function Top({showSearch = true}) {
   }
 
   return (
-    <Header>
-      <LogoImg src={Logo} alt='Logo' onClick={onHome}/>
-      <RightTap>
-        {showSearch && (
-          <SearchPage onClick={onSearch}>
-          <BsSearch size="25"/>
-        </SearchPage>
-        )}
-        <MyPage onClick={onMy}>
-          <BsPerson size="30"/>
-        </MyPage>
-      </RightTap>  
-    </Header>
+    <Box sx={{flexGrow: 1}}>
+      <AppBar position='static' color='transparent' elevation={1}>
+        <Box
+          sx={{
+            display:'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            maxWidth: 'lg',
+            width: '100%',
+            mx: 'auto',
+            padding: '5px',
+          }}
+          >
+            <Box 
+              sx={{ 
+                flexGrow: 1,
+                display: 'flex', 
+                justifyContent: 'center',
+                fontWeight: 'bold', 
+                fontSize: {
+                  md: 'h5.fontSize'
+                },
+              cursor: 'pointer'
+              }}
+                onClick={onHome} >
+                League Linker
+              </Box>
+
+              <Box sx={{
+                flexGrow: 1, 
+                display: 'flex', 
+                alignItems: {xs: 'center', lg:'center'}, 
+                justifyContent: {xs:'center', md: 'center'}}}>
+                <SearchIcon 
+                sx={{
+                  fontSize: {
+                    xs: '30px',
+                    md: '35px',
+                  },
+                  mx: '3px',
+                }} onClick={onSearch} />
+                <PersonIcon  sx={{
+                  fontSize: {
+                    xs: '30px',
+                    md: '35px',
+                  }
+                }} onClick={onMy}/>
+              </Box>
+          </Box>
+      </AppBar>
+    </Box>
   );
 }
-
-const Header = styled.div`
-  height: 70px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const LogoImg = styled.img`
-  margin-left: 10px;
-  cursor: pointer;
-  width: 60px;
-  height: 60px;
-`;
-
-const RightTap = styled.div`
-  margin-right: 10px;
-  width: 10%;
-  display: flex;
-  justify-content: center;
-`
-
-const SearchPage = styled.div`
-  cursor: pointer
-  
-`;
-
-const MyPage = styled.div`
-  cursor: pointer;
-  padding-left: 15px;
-`;
