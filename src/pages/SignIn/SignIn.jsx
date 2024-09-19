@@ -1,51 +1,51 @@
 import React from 'react';
 import styled from 'styled-components';
-import HorizonLine from './components/HorizonLine';
+import { useNavigate } from 'react-router-dom';
+import HorizonLine from '../../components/HorizonTextLine';
 import GoogleLoginImg from '../../img/web_neutral_sq_SI@4x.png'
 import KakaoLoginImg from '../../img/kakao_login_large_narrow.png'
 import ReturnHeader from '../../components/ReturnHeader';
 
 
-const Login = () => {
-    const handleLogin = () => {
-    };
+const SignIn = () => {
+  const navigate = useNavigate();
+  const handleLogin = () => {
+  };
 
-    const handleGoogleLogin = () => {
-    };
+  const handleGoogleLogin = () => {
+  };
 
-    const handleKakaoLogin = () => {
-    };
+  const handleKakaoLogin = () => {
+  };
 
-    const handleSignUp = () => {
-    };
+  const handleSignUp = () => {
+    navigate('/SignUp');
+  };
 
-    return (
-        <Container>
-            {/* <ReturnHeader text="EXCLUB LEAGUE"/> */}
-            <ReturnHeader text="LEAGUE LINKER"/>
-            
-            <Form>
-                <Input type="text" placeholder="아이디" />
-                <Input type="password" placeholder="비밀번호" />
-                <Button onClick={handleLogin}>로그인</Button>
-                {/* <Button onClick={handleSignUp}>회원가입</Button> */}
-                <HorizonLine text="또는" />
-                <SocialButtons>
-                    <GoogleLogin onClick={handleGoogleLogin} />
-                    <KakaoLogin onClick={handleKakaoLogin} />
-                    <SignUp onClick={handleSignUp}>회원가입</SignUp>
-                </SocialButtons>
-            </Form>
-            <NonBlock/>
-        </Container>
-    );
+  return (
+    <Container>
+      <ReturnHeader text="LEAGUE LINKER" />
+
+      <Form>
+        <Input type="email" placeholder="이메일" />
+        <Input type="password" placeholder="비밀번호" />
+        <Button onClick={handleLogin}>로그인</Button>
+        <HorizonLine text="또는" />
+        <SocialButtons>
+          <GoogleLogin onClick={handleGoogleLogin} />
+          <KakaoLogin onClick={handleKakaoLogin} />
+          <SignUp onClick={handleSignUp}>회원가입</SignUp>
+        </SocialButtons>
+      </Form>
+      <NonBlock />
+    </Container>
+  );
 };
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   justify-content: space-between;
   height: 100vh;
   background-color: #f7f7f7;
@@ -62,6 +62,10 @@ const Input = styled.input`
   margin-bottom: 10px;
   border: 1px solid #dedede;
   border-radius: 6px;
+
+  &::placeholder {
+    color: #9e9e9e;
+  }
 `;
 
 const Button = styled.button`
@@ -123,4 +127,4 @@ const NonBlock = styled.div`
     height: 30px;
     border: none;
 `
-export default Login;
+export default SignIn;
