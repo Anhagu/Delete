@@ -10,7 +10,7 @@ export default function Top({showSearch = true}) {
   const navigate = useNavigate();
 
   const onHome = () => {
-    navigate('/');
+    navigate('/Main');
   };
 
   const onSearch = () => {
