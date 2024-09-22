@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import ReturnArrowImg from "../img/free-icon-right-arrow-109617.png"
 
-const ReturnHeader = ({ text }) => {
+const ReturnHeader = ({ text, isSearch }) => {
     const navigate = useNavigate();
     const handleReturnArrow = () => {
         navigate(-1); // 이전 페이지로 이동
@@ -12,7 +12,8 @@ const ReturnHeader = ({ text }) => {
     return (
         <Container>
             <ReturnArrow onClick={handleReturnArrow} />
-            <Text>{text}</Text>
+            {!isSearch && <Text>{text}</Text>}
+            {isSearch && <Input type="text" placeholder="검색" />}
             <NonBlock/>
         </Container>
     );
@@ -23,7 +24,10 @@ const Container = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    height: 58.5px;
     text-align: center;
+    background-color: #f7f7f7;
+    /* background-color: red; */
 `;
 
 const ReturnArrow = styled.button`
@@ -38,6 +42,17 @@ const ReturnArrow = styled.button`
 
 const Text = styled.h2`
     background: #f7f7f7;
+`;
+
+const Input = styled.input`
+  padding: 10px;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  width: 60%;
+
+  &::placeholder {
+    color: #9e9e9e;
+  }
 `;
 
 const NonBlock = styled.div`

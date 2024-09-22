@@ -1,5 +1,5 @@
 import React from 'react'
-import Top from './Top'
+import Header from './Header'
 import AdPage from './AdPage'
 import Calendar from './Calendar'
 import SettingFiled from './SettingFiled'
@@ -19,7 +19,7 @@ export default function Main() {
   ]
   return (
     <div className='main'>
-        <Top />
+        <Header />
         <AdPage />
         <Calendar />
         <SettingFiled />
