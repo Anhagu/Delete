@@ -1,14 +1,14 @@
 import React from 'react'
-import Top from './Top'
+import Header from './Header'
 import AdPage from './AdPage'
 import Calendar from './Calendar'
 import SettingFiled from './SettingFiled'
 import Footer from './Footer'
 import MainLeagueList from './MainLeagueList'
-import NoTeam from './NoTeam'
+import { Box } from '@mui/material'
 
 
-export default function Team() {
+export default function Main() {
 
   const notices = [
     {num:1, title: '첫번째', contents: '첫번째'},
@@ -19,16 +19,20 @@ export default function Team() {
   ]
   return (
     <div className='main'>
-        <Top />
+        <Header />
         <AdPage />
         <Calendar />
         <SettingFiled />
         {notices.map((notice) =>(
           <MainLeagueList num={notice.num} title={notice.title} content={notice.contents} />
         ))}
-
-        <NoTeam  />
-        {/* <Footer /> */}
+        <Box sx={{
+          height : {
+            xs: '120px',
+            md: '200px'
+          }
+        }}/>
+        <Footer />
     </div>
   )
 }

@@ -59,9 +59,10 @@ export default function AdPage() {
 
 const SliderContainer = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  position: relative;
   margin: 0 auto;
   margin-top: 5px;
   width: 100%;
@@ -77,7 +78,7 @@ const SliderContainer = styled.div`
 
 const SlideImage = styled.img`
   width: 90%;
-  height: 100%;
+  height: 85%;
   object-fit: cover;
 
   @media (max-width: 390px) {
@@ -101,8 +102,9 @@ const ImageCounter = styled.div`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   position: absolute;
-  top: 30%;
+  top: 50%;
   width: 100%;
   padding: 0 20px;
   transform: translateY(-80%);
