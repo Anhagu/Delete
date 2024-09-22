@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # 코딩 스타일 가이드
 
 ### 1. 들여쓰기 밑 공백
@@ -23,6 +21,10 @@
 npm install
 npm install styled-components
 npm install react-router-dom
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @emotion/react @emotion/styled
+npm install @fontsource/roboto
+npm install @mui/icons-material
 ```
 
 ### 6. 테스트 규칙
@@ -54,4 +56,3 @@ Fork한 개인 레파지토리를 git clone해서 코드를 작성해주세요.
     /* 필요한 스타일을 추가하세요 */
     `;
     ```
->>>>>>> 1ff553690a014c0318ae10b08df1c526ea1f1967
