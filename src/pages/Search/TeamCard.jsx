@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export default function Join() {
+const TeamCard = () => {
   return (
     <TeamContainer>
       <TeamInfo>
@@ -78,6 +78,7 @@ const JoinBtn = styled.button`
     }
 `;
 
+export default TeamCard;
 
 
 
