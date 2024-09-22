@@ -6,12 +6,18 @@ import Header from '../Main/Header';
 import styled from 'styled-components';
 import ReturnHeader from '../../components/ReturnHeader';
 import SettingFiled from '../Main/SettingFiled';
+import TeamCard from './TeamCard';
 
 const Search = () => {
   return (
     <SearchPage>
-       <ReturnHeader text="Some Text" isSearch={true} />
+       <ReturnHeader isSearch={true} />
        <SettingFiled/>
+       <TeamCard/>
+       <TeamCard/>
+       <TeamCard/>
+       <TeamCard/>
+       <TeamCard/>
     </SearchPage>
   )
 }
