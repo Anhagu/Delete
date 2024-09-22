@@ -44,14 +44,13 @@ export default function AdPage() {
 
 
         <ButtonContainer>
-          <SkipPreviousRoundedIcon
-            onClick={prevSlide} 
-            fontSize='large'
-            sx={{border: '1px solid black'}}/>
-          <SkipNextRoundedIcon 
-            onClick={nextSlide} 
-            fontSize='large'
-            sx={{border: '1px solid black'}}/>
+          <SlideButton onClick={prevSlide} >
+            <SkipPreviousRoundedIcon fontSize='large'/>
+          </SlideButton>
+
+          <SlideButton onClick={nextSlide} >
+            <SkipNextRoundedIcon fontSize='large'/>
+          </SlideButton>
         </ButtonContainer>    
     </SliderContainer>
       
@@ -59,16 +58,16 @@ export default function AdPage() {
 }
 
 const SliderContainer = styled.div`
-  position: relative;
-  top : 15px;
-  width: 100%;
-  max-width: 800px;
-  height: 300px;
-  margin: 0 auto;
-  overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  margin-top: 5px;
+  width: 100%;
+  height: 400px;
+  max-width: 800px;
+  overflow: hidden;
 
   @media (max-width: 390px) {
     width: 95%;
@@ -86,23 +85,37 @@ const SlideImage = styled.img`
   }
 `;
 
-const ButtonContainer = styled.div`
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
+const ImageCounter = styled.div`
+  margin-top: 10px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+  color: white;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
-const ImageCounter = styled.div`
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
   position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
+  top: 30%;
+  width: 100%;
+  padding: 0 20px;
+  transform: translateY(-80%);
+`;
+
+const SlideButton = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.3);
-  padding: 5px 10px;
-  border-radius: 20px;
-  font-size: 16px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  color: white;
 `;

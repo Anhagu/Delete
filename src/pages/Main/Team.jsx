@@ -1,85 +1,35 @@
 import React from 'react'
-import styled from 'styled-components';
+import Top from './Top'
+import AdPage from './AdPage'
+import Calendar from './Calendar'
+import SettingFiled from './SettingFiled'
+import Footer from './Footer'
+import MainLeagueList from './MainLeagueList'
+import NoTeam from './NoTeam'
+
 
 export default function Team() {
+
+  const notices = [
+    {num:1, title: '첫번째', contents: '첫번째'},
+    {num:2, title: '두번째', contents: '두번째'},
+    {num:3, title: '세번째', contents: '세번째'},
+    {num:4, title: '네번째', contents: '네번째'},
+    {num:5, title: '다섯번째', contents: '다섯번째'},
+  ]
   return (
-    <MainTeam>
-      <MyTeam>
-        <span>팀 이름</span>
-        <span>순위</span>
-      </MyTeam>
-      <ScheduledGame>
-        <span>상대 팀 이름</span>
-        <span>YYYY. MM .DD</span>
-      </ScheduledGame>
-    </MainTeam>
-  );
+    <div className='main'>
+        <Top />
+        <AdPage />
+        <Calendar />
+        <SettingFiled />
+        {notices.map((notice) =>(
+          <MainLeagueList num={notice.num} title={notice.title} content={notice.contents} />
+        ))}
+
+        <NoTeam  />
+        {/* <Footer /> */}
+    </div>
+  )
 }
 
-const MainTeam = styled.div`
-  padding: 5px;
-  margin-top: 20px;
-  height: auto;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    line-height: 1.5;
-    gap: 5px;
-  }
-`;
-
-const MyTeam = styled.div`
-  width: 45%;
-  border: 1px solid black;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  font-size: 20px;
-
-  @media (max-width: 1200px) {
-    width: 60%;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    font-size: 16px;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 14px;
-  }
-`;
-
-const ScheduledGame = styled.div`
-  width: 45%;
-  border: 1px solid black;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 20px;
-  font-size: 20px;
-
-  @media (max-width: 1200px) {
-    width: 60%;
-  }
-
-  @media (max-width: 768px) {
-    width: 100%;
-    font-size: 16px;
-    margin-top: 15px;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-  }
-
-  @media (max-width: 480px) {
-    font-size: 14px;
-  }
-`;
