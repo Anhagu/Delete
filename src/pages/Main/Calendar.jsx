@@ -1,22 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react'
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import styled from 'styled-components';
-import { style } from '@mui/system';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 
 export default function Calendar() {
 
-    // 현재 날짜
-    const now = new Date();
-    // 오늘 일
-    const today = now.getDate();
-    // 오늘 요일
-    const todayWeek = now.getDay();
-    // 이번 달의 마지막
-    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-    // 현재 년도
-    const currentYear = now.getFullYear();
-    // 현재 월
-    const currentMonth = now.toLocaleDateString('en-US', {month: 'long'});
+    // 선택한 날짜
+    const [value, setValue] = useState(dayjs(new Date()));
+    // 선택한 일
+    const [today, setToday] = useState(value.date()); 
+    // 선택한 요일
+    const [todayWeek, setTodayWeek] = useState(value.day());
+    // 선택한 달의 마지막
+    const [lastDay, setLastDay] = useState(value.daysInMonth());
     // 날짜 목록
     const [dayList, setDayList] = useState([]);
     // 요일 목록
@@ -26,7 +23,6 @@ export default function Calendar() {
     // 기준 날짜 계산
     const getAllDate = (today, lastDay) => {
         let dates = [];
-
         dates[0] = today;
         for(let i = 1; i <= 6; i++) {
             today++;
@@ -37,7 +33,7 @@ export default function Calendar() {
         // 확인용 console.log(dates[i].getDay());
         }  
         return dates;
-    }
+    };
 
     // 요일 계산
     const getAllWeek = (todayWeek) => {
@@ -54,13 +50,21 @@ export default function Calendar() {
             weekList[i] = week[todayWeek];
         }
         return weekList;
-    }
+    };
 
     // 날짜, 요일 계산 후 상태 저장
     useEffect(() => {
         setDayList(getAllDate(today, lastDay));
         setWeekList(getAllWeek(todayWeek));
     }, [today, lastDay, todayWeek]);
+
+    // 날짜 선택 시 기준 날짜 변경
+    const handleDateChange = (newValue) => {
+        setValue(newValue);
+        setToday(newValue.date());
+        setTodayWeek(newValue.day());
+        setLastDay(newValue.daysInMonth());
+    }
 
     // 날짜, 요일 결합
     const calendarData = dayList.map((day, index) => ({
@@ -71,44 +75,32 @@ export default function Calendar() {
     const weekRef = useRef(null);
 
     return (
-        <CalendarContainer>
-            <YearMonthList>
-            <CalendarMonthIcon sx={{
-                fontSize: {
-                    xs: '25px',
-                    md: '30px',
-                    lg: '35px',
-                },
-                position: 'absolute',
-                right: {
-                    xs: '10%',
-                    md: '30%',
-            }}}/>
-                <Year>{currentYear}</Year>
-                <Month>{currentMonth}</Month>
-            </YearMonthList>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <CalendarContainer compoments={['DatePicker']}>
+                <YearMonthList>
+                    <DatePicker 
+                        label="날짜선택"
+                        value={value}
+                        onChange={handleDateChange}/>
+                </YearMonthList>
 
-        <DayList>
-            <DayListContainer>
-            {calendarData.map((calendar, index) => (
-                <DayListSector key={index}>
-                <div
-                    className={`week ${calendar.week === 'Sun' ? 'Sun' : ''} ${calendar.week === 'Sat' ? 'Sat' : ''}`}
-                    ref={weekRef}
-                >
-                    {calendar.week}
-                </div>
-                <Day>{calendar.day}</Day>
-                </DayListSector>
-            ))}
-            </DayListContainer>
-        </DayList>
-    
-        {/* <CalendarIconContainer>*/}
-            {/* <CalendarIconText>전체 보기</CalendarIconText> */}
-            {/* <CalendarMonthIcon fontSize='large'/> */}
-        {/* </CalendarIconContainer> */}
-        </CalendarContainer>
+                <DayList>
+                    <DayListContainer>
+                        {calendarData.map((calendar, index) => (
+                        <DayListSector key={index}>
+                            <div
+                                className={`week ${calendar.week === 'Sun' ? 'Sun' : ''} ${calendar.week === 'Sat' ? 'Sat' : ''}`}
+                                ref={weekRef}
+                            >
+                                {calendar.week}
+                            </div>
+                            <Day>{calendar.day}</Day>
+                        </DayListSector>
+                    ))}
+                    </DayListContainer>
+                </DayList>
+            </CalendarContainer>
+        </LocalizationProvider>
     );
 }
 
@@ -119,7 +111,7 @@ const CalendarContainer = styled.div`
     justify-content: center;
     text-align: center;
     height: 200px;
-    width: 60%;
+    width: 100%;
     margin: 0 auto;
     overflow: initial;
     border-top: 1px solid gray;
@@ -134,24 +126,6 @@ const CalendarContainer = styled.div`
 const YearMonthList = styled.div`
     position: relative;
     top: 10px;
-`;
-
-const Year = styled.div`
-    font-size: 1.5rem;
-    font-weight: bold;
-
-    @media (max-width: 390px) {
-        font-size: 1rem;
-    }
-`;
-
-const Month = styled.div`
-    font-size: 1.5rem;
-    font-weight: bold;
-
-    @media (max-width: 390px) {
-        font-size: 1rem;
-    }
 `;
 
 const DayList = styled.div`
