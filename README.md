@@ -25,6 +25,7 @@ npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/material @emotion/react @emotion/styled
 npm install @fontsource/roboto
 npm install @mui/icons-material
+npm install axios
 ```
 
 ### 6. 테스트 규칙
