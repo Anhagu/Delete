@@ -1,53 +1,106 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { areas } from '../../components/AreaData';
-import HorizonLine from '../../components/HorizonLine';
 import ReturnHeader from '../../components/ReturnHeader';
 
 const MakeTeam = () => {
 
-    const [selectedDo, setSelectedDo] = useState(""); // 도 선택 상태
-    const [selectedSiGunGu, setSelectedSiGunGu] = useState(""); // 시/군/구 선택 상태
-    const [isTermsChecked, setIsTermsChecked] = useState(false);
-    const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
-    const [isAllChecked, setIsAllChecked] = useState(false);
+    const [teamName, setTeamName] = useState("");   // 팀 명
 
-    // 선택한 도에 따라 시/군/구 목록 설정
-    const handleDoChange = (event) => {
-        setSelectedDo(event.target.value);
-        setSelectedSiGunGu(""); // 도가 바뀌면 시/군/구 초기화
-    };
-
-    const handleSiGunGuChange = (event) => {
-        setSelectedSiGunGu(event.target.value);
-    };
+    const [teamStadium, setTeamStadium] = useState(""); // 팀 경기장
+    const [teamStadiumDo, setTeamStadiumDo] = useState(""); // 팀 경기장 도
+    const [teamStadiumSiGunGu, setTeamStadiumSiGunGu] = useState(""); // 팀 경기장 시/군/구
     
-    const handleLogin = () => {
-        if (isAllChecked) {
-            // 가입 로직 처리
-        } else {
-            alert('전체 동의를 먼저 체크해주세요.');
-        }
+    const [teamLocationDo, setTeamLocationDo] = useState(""); // 도 선택 상태
+    const [teamLocationSiGunGu, setTeamLocationSiGunGu] = useState(""); // 시/군/구 선택 상태
+
+    const [teamAge, setTeamAge] = useState([]);
+    const [teamGender, setTeamGender] = useState("");
+    const [memberLevel, setMemberLevel] = useState([]);
+    const [teamLevel, setTeamLevel] = useState(new Array(8).fill(0));
+    const [activityDay, setActivityDay] = useState([]);
+    const [startTime, setStartTime] = useState("00:00");
+    const [endTime, setEndTime] = useState("12:00");
+
+
+    // 경기장 지역
+    const handleStadiumDo = (e) => {
+        setTeamStadiumDo(e.target.value);
+        setTeamStadiumSiGunGu("");
+    };
+    const handleStadiumSiGunGu = (e) => {
+        setTeamStadiumSiGunGu(e.target.value);
     };
 
-    const handleTermsChange = () => {
-        setIsTermsChecked(!isTermsChecked);
+    // 팀 지역
+    const handleLocationDo = (e) => {
+        setTeamLocationDo(e.target.value);
+        setTeamLocationSiGunGu("");
+    };
+    const handleLocationSiGunGu = (e) => {
+        setTeamLocationSiGunGu(e.target.value);
     };
 
-    const handlePrivacyChange = () => {
-        setIsPrivacyChecked(!isPrivacyChecked);
+    // 연령
+    const handleTeamAge = (e) =>{
+        const {value, checked} = e.target;
+        setTeamAge((prev) => 
+            checked ? [...prev, value] : prev.filter((age) => age !== value));
+    }
+
+    // 성별
+    const handleTeamGender = (e) => {
+        setTeamGender(e.target.value);
     };
 
-    const handleAllChange = () => {
-        const newValue = !isAllChecked;
-        setIsAllChecked(newValue);
-        setIsTermsChecked(newValue);
-        setIsPrivacyChecked(newValue);
+    // 팀원 레벨
+    const handleMemeberLevel = (e) => {
+        const {value, checked} = e.target;
+        setMemberLevel((prev) => 
+            checked ? [...prev, value] : prev.filter((level) => level !== value));
+    }
+
+    // 팀 레벨
+    const handleTeamLevel = (index, value) => {
+        const newLevels = [...teamLevel];
+        newLevels[index] = value;
+        setTeamLevel(newLevels);
+    };
+
+
+    // 팀 활동 요일
+    const handleActivityDay = (e) => {
+        const {value, checked} = e.target;
+        setActivityDay((prev) => 
+            checked ? [...prev, value] : prev.filter((day) => day !== value));
+    }
+
+    // 팀 활동 시간
+    const handleStartTime = (e) => setStartTime(e.target.value);
+    const handleEndTime = (e) => setEndTime(e.target.value);
+    
+    // 팀 생성 버튼 클릭 시 입력값을 저장하는 로직
+    const handleCreate = () => {
+        const teamData = {
+            teamName,
+            teamStadium,
+            teamStadiumLocation: `${teamStadiumDo} ${teamStadiumSiGunGu}`,
+            teamLocation: `${teamLocationDo} ${teamLocationSiGunGu}`,
+            teamAge,
+            teamGender,
+            teamLevel,
+            activityDay,
+            startTime,
+            endTime,
+        };
+        console.log(teamData);
     };
 
     // 선택된 도에 따라 시/군/구 목록 필터링
-    const siGunGuList = areas.find(area => area.name === selectedDo)?.subArea || [];
-
+    const stadiumSiGunGuList = areas.find(
+        area => area.name === teamStadiumDo)?.subArea || [];
+    const locationSiGunGuList = areas.find(
+        area => area.name === teamLocationDo)?.subArea || [];
 
     return (
         <Container>
@@ -55,21 +108,27 @@ const MakeTeam = () => {
 
             <Form>
                 <Text>팀 이름</Text>
-                <Input type="email" placeholder="팀 이름을 입력해주세요" />
-                <Text></Text>
-                <Input type="password" placeholder="비밀번호를 입력해주세요" />
-                <Text>비밀번호 확인</Text>
-                <Input type="password" placeholder="비밀번호 확인" />
-                <Text>이름</Text>
-                <Input type="text" placeholder="이름을 입력해주세요" />
-                <Text>생년월일</Text>
-                <Input type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
-                <Text>전화번호</Text>
-                <Input type="text" placeholder="전화번호를 입력해주세요" />
+                <Input 
+                    type="text" 
+                    placeholder="팀 이름 입력" 
+                    value={teamName}
+                    onChange={(e) => setTeamName(e.target.value)}    
+                />
 
-                <Text>지역 선택</Text>
+                <Text>경기장</Text>
+                <Input 
+                    type="text" 
+                    placeholder="경기장 이름 입력" 
+                    value={teamStadium}
+                    onChange={(e) => setTeamStadium(e.target.value)}
+                />
+
+                <Text>경기장 지역</Text>
                 <AreaForm>
-                    <Select value={selectedDo} onChange={handleDoChange}>
+                    <Select 
+                        value={teamStadiumDo} 
+                        onChange={handleStadiumDo}
+                    >
                         <option value="">도 선택</option>
                         {areas.map((area, index) => (
                             <option key={index} value={area.name}>
@@ -78,9 +137,42 @@ const MakeTeam = () => {
                         ))}
                     </Select>
 
-                    <Select value={selectedSiGunGu} onChange={handleSiGunGuChange} disabled={!selectedDo}>
+                    <Select 
+                        value={teamStadiumSiGunGu} 
+                        onChange={handleStadiumSiGunGu} 
+                        disabled={!teamStadiumDo}
+                    >
                         <option value="">시/군/구 선택</option>
-                        {siGunGuList.map((subArea, index) => (
+                        {stadiumSiGunGuList.map((subArea, index) => (
+                            <option key={index} value={subArea}>
+                                {subArea}
+                            </option>
+                        ))}
+                    </Select>
+                </AreaForm>
+                    
+
+                <Text>팀 활동 지역</Text>
+                <AreaForm>
+                    <Select 
+                        value={teamLocationDo} 
+                        onChange={handleLocationDo}
+                    >
+                        <option value="">도 선택</option>
+                        {areas.map((area, index) => (
+                            <option key={index} value={area.name}>
+                                {area.name}
+                            </option>
+                        ))}
+                    </Select>
+
+                    <Select 
+                        value={teamLocationSiGunGu} 
+                        onChange={handleLocationSiGunGu} 
+                        disabled={!teamLocationDo}
+                    >
+                        <option value="">시/군/구 선택</option>
+                        {locationSiGunGuList.map((subArea, index) => (
                             <option key={index} value={subArea}>
                                 {subArea}
                             </option>
@@ -88,75 +180,121 @@ const MakeTeam = () => {
                     </Select>
                 </AreaForm>
 
+                <Text>팀 연령</Text>
                 <CheckBoxContainer>
-                    <Checkbox
-                        type="checkbox"
-                        id="allAgree"
-                        checked={isAllChecked}
-                        onChange={handleAllChange}
-                    />
-                    <Label htmlFor="allAgree">전체 동의</Label>
+                    {['연령 무관', '10-20대', '20-30대', '30-40대', '40-50대'].map((age, index)=>(
+                        <ContainerBox key={index}>
+                            <Checkbox 
+                                type='checkbox'
+                                value={age}
+                                onChange={handleTeamAge}
+                                checked={teamAge.includes(age)}
+                            />
+                            <Label>{age}</Label>
+                        </ContainerBox>
+                    ))}
                 </CheckBoxContainer>
+                
+                <Text>성별</Text>
+                <Select
+                    value={teamGender}
+                    onChange={handleTeamGender}
+                >
+                    <option value="성별무관">성별무관</option>
+                    <option value="남성">남성</option>
+                    <option value="여성">여성</option>
+                </Select>
 
-                <HorizonLine />
+                <Text>희망 팀원 숙련도</Text>
+                    <CheckBoxContainer>
+                        {['실력 무관', '아마추어', '세미프로', '프로'].map((level,index) => (
+                            <ContainerBox key={index} >
+                                <Checkbox 
+                                    type='checkbox'
+                                    value={level}
+                                    onChange={handleMemeberLevel}
+                                    checked={memberLevel.includes(level)}
+                                />
+                                <Label>{level}</Label>
+                            </ContainerBox>
+                        ))}
+                    </CheckBoxContainer>
 
+
+                <Text>팀 레벨</Text>
+                <RangeBoxContainer>
+                        {['공격(Attack)', '패스(Pass)', '드리블(Dribble)','신체(Physical)',
+                            '방어(Defense)', '슛팅(Shoot)', '스피드(Speed)','체력(Stamina)'].map((level,index) =>(
+                        <ContainerBox key={index}>
+                            <Label>{level} : {teamLevel[index]}</Label>
+                            <RangeBox>
+                                <RangeInput
+                                    type='range'
+                                    min='0'
+                                    max='10'
+                                    value={teamLevel[index]}
+                                    onChange={(e) => handleTeamLevel(index, e.target.value)}
+                                />
+                                <RangeNumber>
+                                    {Array.from({length:11}, (_, i) => (
+                                        <span key={i}>{i}</span>
+                                    ))}
+                                </RangeNumber>
+                            </RangeBox>
+                        </ContainerBox>
+                        ))}
+                </RangeBoxContainer>
+
+
+                <Text>팀 활동 요일</Text>
                 <CheckBoxContainer>
-                    <Checkbox
-                        type="checkbox"
-                        id="termsAgree"
-                        checked={isTermsChecked}
-                        onChange={handleTermsChange}
-                    />
-                    <LabelContainer>
-                        <Label htmlFor="termsAgree">이용약관 동의</Label>
-                        <DetailButton onClick={() => alert('이용약관 자세히 보기')}>
-                            자세히
-                        </DetailButton>
-                    </LabelContainer>
+                    {['월', '화', '수', '목', '금', '토', '일'].map((day, index) => (
+                        <ContainerBox key={index}>
+                            <Checkbox 
+                                type='checkbox'
+                                value={day}
+                                onChange={handleActivityDay}
+                                checked={activityDay.includes(day)}
+                            />
+                            <Label>{day}</Label>
+                        </ContainerBox>
+                    ))}
                 </CheckBoxContainer>
-
-                <CheckBoxContainer>
-                    <Checkbox
-                        type="checkbox"
-                        id="privacyAgree"
-                        checked={isPrivacyChecked}
-                        onChange={handlePrivacyChange}
+                
+                <Text>팀 활동 시간</Text>
+                <ContainerBox>
+                    <Input 
+                        type="time"
+                        value={startTime}
+                        onChange={handleStartTime}    
                     />
-                    <LabelContainer>
-                        <Label htmlFor="privacyAgree">개인정보 수집 및 이용 동의</Label>
-                        <DetailButton onClick={() => alert('개인정보 수집 및 이용 자세히 보기')}>
-                            자세히
-                        </DetailButton>
-                    </LabelContainer>
-                </CheckBoxContainer>
+                    <Input 
+                        type="time"
+                        value={endTime}
+                        onChange={handleEndTime}    
+                    />
+                </ContainerBox>
 
-                <Button onClick={handleLogin}>가입하기</Button>
+                <Button onClick={handleCreate}>팀 생성하기</Button>
             </Form>
-
-            {/* 여기에 전체동의 체크박스 */}
-            {/* 구분선 */}
-            {/* 이용약관 동의 체크박스 & 자세히 버튼 */}
-            {/* 개인정보 수집 및 이용 동의 & 자세히 버튼  */}
-            <NonBlock />
         </Container>
     );
 };
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  /* justify-content: center; */
-  justify-content: space-between;
-  height: 100vh;
-  background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+    background-color: #f7f7f7;
 `;
 
 const Form = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
+    width: 400px;
 `;
 
 const Text = styled.div`
@@ -180,10 +318,16 @@ const Input = styled.input`
     }
 `;
 
+const Label = styled.label`
+    font-size: 14px;
+    color: #333;
+`; 
+
 const AreaForm = styled.div`
     display: flex;
     flex-direction: row;
-    width: 300px;
+    justify-content: space-around;
+    width: 350px;
     margin-bottom: 5px;
 `
 
@@ -198,60 +342,69 @@ const Select = styled.select`
     color: #333;
 `;
 
+const CheckBoxContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 10px;
+`;
+
+const RangeBoxContainer = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 10px;
+`;
+
+const RangeBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin-bottom: 10px;
+`
+
+const RangeInput = styled.input`
+    width: 100%;
+    margin-bottom: 3px;
+`;
+
+const RangeNumber = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+`;
+
+const ContainerBox = styled.div`
+    display: flex;
+    width:100%;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 5px;
+`;
+
+const Checkbox = styled.input.attrs({type:'checkbox'})`
+    margin-right: 5px;
+`;
+
+
+
 const Button = styled.button`
     width: 90%;
     padding: 10px;
     margin-top: 10px;
     border: none;
     border-radius: 6px;
-    background-color: #007bff;
+    background-color: #a8dba8;
     color: #fff;
     cursor: pointer;
 
     &:hover {
-        background-color: #0056b3;
+        background-color: #cff09e;
     }
 `;
-
-const CheckBoxContainer = styled.div`
-    display: flex;
-    align-items: center;
-    width: 100%;
-`;
-
-const Checkbox = styled.input`
-    margin-right: 10px;
-`;
-
-const LabelContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-`;
-
-const Label = styled.label`
-    font-size: 14px;
-    color: #333;
-`;
-
-const DetailButton = styled.button`
-    background: none;
-    border: none;
-    color: #007bff;
-    cursor: pointer;
-    margin-left: 5px;
-    padding: 0;
-
-    &:hover {
-        text-decoration: underline;
-    }
-`;
-
-const NonBlock = styled.div`
-    width: 30px;
-    height: 30px;
-    border: none;
-`;
-
 
 export default MakeTeam;
