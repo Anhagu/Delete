@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
 import styled from 'styled-components';
 
 const Header = () => {
@@ -24,7 +23,6 @@ const Header = () => {
         <Title onClick={onHome}>League Linker</Title>
         <IconsContainer>
             <SearchIcon onClick={onSearch} style={{ fontSize: 30 }}/>
-            {/* <PersonIcon onClick={onMy} style={{ fontSize: 30 }}/> */}
         </IconsContainer>
     </HeaderContainer>
   );
@@ -36,7 +34,9 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 10px 0px;
+  height: 8vh;
+  /* padding: 10px 0px; */
+  /* margin-bottom: 10px; */
   background-color: #f7f7f7;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
 `;

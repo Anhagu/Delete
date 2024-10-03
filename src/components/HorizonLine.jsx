@@ -13,7 +13,7 @@ const LineContainer = styled.div`
   text-align: center;
   border-bottom: 1px solid #aaa;
   line-height: 0.1em;
-  margin: 5px 0 5px;
+  margin: 0.5vh 0 0.5vh;
 `;
 
 export default HorizonLine;

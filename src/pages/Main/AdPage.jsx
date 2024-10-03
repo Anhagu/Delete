@@ -77,13 +77,9 @@ const SliderContainer = styled.div`
 `;
 
 const SlideImage = styled.img`
-  width: 90%;
-  height: 85%;
+  width: 95%;
+  height: 100vh;
   object-fit: cover;
-
-  @media (max-width: 390px) {
-    width: 100%;
-  }
 `;
 
 const ImageCounter = styled.div`
