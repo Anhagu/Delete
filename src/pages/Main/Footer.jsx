@@ -1,5 +1,4 @@
-import { Home } from '@mui/icons-material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeIcon from '@mui/icons-material/Home';
@@ -16,9 +15,9 @@ export default function Footer() {
 
   return (
     <FooterContainer>
-      <FooterItem onClick={() => onNavigate('/game')}><HomeIcon/>홈</FooterItem>
-      <FooterItem onClick={() => onNavigate('/league')}><LeagueIcon/>리그</FooterItem>
-      <FooterItem onClick={() => onNavigate('/chat')}><TeamIcon/>팀</FooterItem>
+      <FooterItem onClick={() => onNavigate('/Main')}><HomeIcon/>홈</FooterItem>
+      <FooterItem onClick={() => onNavigate('/leagueMain')}><LeagueIcon/>리그</FooterItem>
+      <FooterItem onClick={() => onNavigate('/Search')}><TeamIcon/>팀</FooterItem>
       <FooterItem onClick={() => onNavigate('/team')}><MyPageIcon/>설정</FooterItem>
     </FooterContainer>
   );

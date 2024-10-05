@@ -7,12 +7,12 @@ const TeamCard = ({ name, members, region, gender }) => {
       <TeamInfo>
         <TeamTop>
           <TeamName>{name}</TeamName>
-          <TeamLPG>{members}</TeamLPG>
+          <TeamMembers>{members}</TeamMembers>
         </TeamTop>
 
         <LPGContainer>
-          <TeamLPG>{region}</TeamLPG>
-          <TeamLPG>{gender}</TeamLPG>
+          <TeamRegion>{region}</TeamRegion>
+          <TeamGender>{gender}</TeamGender>
         </LPGContainer>
       </TeamInfo>
       <JoinBtn>
@@ -49,13 +49,25 @@ const TeamName = styled.div`
   font-size: 22px;
 `;
 
+const TeamMembers = styled.div`
+  font-size: 18px;
+  color: #5b5b5b;
+`;
+
 const LPGContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 `;
 
-const TeamLPG = styled.div`
+const TeamRegion = styled.div`
+  margin-left: 25px;
+  font-size: 18px;
+  color: #5b5b5b;
+`;
+
+const TeamGender = styled.div`
+  margin-left: 25px;
   font-size: 18px;
   color: #5b5b5b;
 `;
