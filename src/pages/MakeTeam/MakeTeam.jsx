@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { areas } from '../../components/AreaData';
 import ReturnHeader from '../../components/ReturnHeader';
@@ -22,6 +22,33 @@ const MakeTeam = () => {
     const [startTime, setStartTime] = useState("00:00");
     const [endTime, setEndTime] = useState("12:00");
 
+    // 생성버튼 활성
+    const [isButtonEnabled, setIsButtonEnabled] = useState(false);
+
+    useEffect(() => {
+        if(
+            teamName &&
+            teamStadium && 
+            teamStadiumDo && 
+            teamStadiumSiGunGu &&
+            teamLocationDo &&
+            teamLocationSiGunGu &&
+            teamAge &&
+            teamGender &&
+            memberLevel &&
+            teamLevel.some((level) => level !== 0) &&
+            activityDay &&
+            startTime &&
+            endTime
+        ) {
+            setIsButtonEnabled(true);
+        } else {
+            setIsButtonEnabled(false)
+        }
+    }, [teamName, teamStadium, teamStadiumDo, teamStadiumSiGunGu,
+        teamLocationDo, teamLocationSiGunGu, teamAge, teamGender,
+        memberLevel, teamLevel, activityDay, startTime, endTime
+    ]);
 
     // 경기장 지역
     const handleStadiumDo = (e) => {
@@ -78,9 +105,12 @@ const MakeTeam = () => {
     // 팀 활동 시간
     const handleStartTime = (e) => setStartTime(e.target.value);
     const handleEndTime = (e) => setEndTime(e.target.value);
+
     
     // 팀 생성 버튼 클릭 시 입력값을 저장하는 로직
     const handleCreate = () => {
+        if(!isButtonEnabled) return;
+
         const teamData = {
             teamName,
             teamStadium,
@@ -275,7 +305,7 @@ const MakeTeam = () => {
                     />
                 </ContainerBox>
 
-                <Button onClick={handleCreate}>팀 생성하기</Button>
+                <Button onClick={handleCreate} disabled={!isButtonEnabled}>팀 생성하기</Button>
             </Form>
         </Container>
     );
@@ -294,7 +324,7 @@ const Form = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
+    padding-bottom: 20px;
 `;
 
 const Text = styled.div`
@@ -398,12 +428,12 @@ const Button = styled.button`
     margin-top: 10px;
     border: none;
     border-radius: 6px;
-    background-color: #a8dba8;
+    background-color: ${(props) => props.disabled ? '#cccccc' : '#a8dba8'};
     color: #fff;
-    cursor: pointer;
+    cursor: ${(props) => props.disabled ? 'not-allowed' : 'pointer'};
 
     &:hover {
-        background-color: #cff09e;
+        background-color: ${(props) => props.disabled ? '#cccccc' : '#cff09e'};
     }
 `;
 
