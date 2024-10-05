@@ -7,6 +7,7 @@ import Search from './pages/Search/Search';
 import MakeTeam from './pages/MakeTeam/MakeTeam';
 import TournamentScore from './Tournament/TournamentScore';
 import LeagueMain from './Tournament/LeagueMain';
+import EditProfile from './pages/EditProfile/EditProfile';
 
 const App = () => {
 	return (
@@ -20,6 +21,7 @@ const App = () => {
 					<Route path="/MakeTeam" element={<MakeTeam />}></Route>
 					<Route path="/LeagueMain/TournamentScore" element={<TournamentScore />}></Route>
 					<Route path="/LeagueMain" element={<LeagueMain />}></Route>
+					<Route path="/EditProfile" element={<EditProfile />}></Route>
 				</Routes>
 			</BrowserRouter>
 		</div>
