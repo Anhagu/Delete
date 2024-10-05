@@ -53,7 +53,7 @@ const NoticeList = styled.div`
 
 `;
 const Title = styled.h4`
-    font-styled : bold;
+    font-weight : bold;
     margin: 5px 0;
 `
 

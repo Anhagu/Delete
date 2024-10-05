@@ -57,3 +57,8 @@ Fork한 개인 레파지토리를 git clone해서 코드를 작성해주세요.
     /* 필요한 스타일을 추가하세요 */
     `;
     ```
+
+
+    ### Color
+    - Main-Color : **#a8dba8**
+    - Second-Color :  **#cff09e**
