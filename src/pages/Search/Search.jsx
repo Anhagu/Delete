@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ReturnHeader from '../../components/ReturnHeader';
 import SettingFiled from '../Main/SettingFiled';
 import TeamCard from './TeamCard';
+import Footer from '../Main/Footer';
 
 const teamData = [
   { name: 'Team A', members: '10명', region: '서울', gender: '혼성' },
@@ -28,6 +29,7 @@ const Search = () => {
           />
         ))}
       </TeamCardContainer>
+      <Footer/>
     </SearchPage>
   );
 };

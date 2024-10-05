@@ -21,9 +21,9 @@ const Header = () => {
   return (
     <HeaderContainer>
         <Title onClick={onHome}>League Linker</Title>
-        <IconsContainer>
+        {/* <IconsContainer>
             <SearchIcon onClick={onSearch} style={{ fontSize: 30 }}/>
-        </IconsContainer>
+        </IconsContainer> */}
     </HeaderContainer>
   );
 }
@@ -31,12 +31,12 @@ const Header = () => {
 
 const HeaderContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 8vh;
   /* padding: 10px 0px; */
-  /* margin-bottom: 10px; */
+  margin-bottom: 10px;
   background-color: #f7f7f7;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12);
 `;
@@ -48,9 +48,9 @@ const Title = styled.div`
   cursor: pointer;
 `;
 
-const IconsContainer = styled.div`
-    margin-right: 10px;
-    margin-top: 5px;
-`;
+// const IconsContainer = styled.div`
+//     margin-right: 10px;
+//     margin-top: 5px;
+// `;
 
 export default Header;

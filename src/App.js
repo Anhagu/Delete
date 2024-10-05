@@ -5,6 +5,8 @@ import SignUp from './pages/SignUp/SignUp';
 import Main from './pages/Main/Main';
 import Search from './pages/Search/Search';
 import MakeTeam from './pages/MakeTeam/MakeTeam';
+import TournamentScore from './Tournament/TournamentScore';
+import LeagueMain from './Tournament/LeagueMain';
 
 const App = () => {
 	return (
@@ -16,6 +18,8 @@ const App = () => {
 					<Route path="/Main" element={<Main />}></Route>
 					<Route path="/Search" element={<Search />}></Route>
 					<Route path="/MakeTeam" element={<MakeTeam />}></Route>
+					<Route path="/LeagueMain/TournamentScore" element={<TournamentScore />}></Route>
+					<Route path="/LeagueMain" element={<LeagueMain />}></Route>
 				</Routes>
 			</BrowserRouter>
 		</div>
