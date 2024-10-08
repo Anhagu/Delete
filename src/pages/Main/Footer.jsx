@@ -18,7 +18,7 @@ export default function Footer() {
       <FooterItem onClick={() => onNavigate('/Main')}><HomeIcon/>홈</FooterItem>
       <FooterItem onClick={() => onNavigate('/leagueMain')}><LeagueIcon/>리그</FooterItem>
       <FooterItem onClick={() => onNavigate('/Search')}><TeamIcon/>팀</FooterItem>
-      <FooterItem onClick={() => onNavigate('/team')}><MyPageIcon/>설정</FooterItem>
+      <FooterItem onClick={() => onNavigate('/EditProfile')}><MyPageIcon/>설정</FooterItem>
     </FooterContainer>
   );
 }

@@ -16,13 +16,6 @@ export default function Main() {
 
   const [hasTeam, setHasTeam] = useState(true); // 팀 가입 여부 상태
 
-  // const notices = [
-  //   {num:1, title: '첫번째', contents: '첫번째'},
-  //   {num:2, title: '두번째', contents: '두번째'},
-  //   {num:3, title: '세번째', contents: '세번째'},
-  //   {num:4, title: '네번째', contents: '네번째'},
-  //   {num:5, title: '다섯번째', contents: '다섯번째'},
-  // ]
 
   return (
     <div className='main'>
