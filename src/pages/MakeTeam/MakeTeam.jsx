@@ -134,7 +134,7 @@ const MakeTeam = () => {
 
     return (
         <Container>
-            <ReturnHeader text="회원가입" />
+            <ReturnHeader text="팀 생성" />
 
             <Form>
                 <Text>팀 이름</Text>

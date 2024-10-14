@@ -27,6 +27,7 @@ npm install @fontsource/roboto
 npm install @mui/icons-material
 npm install axios
 npm install react-select
+npm install js-cookie
 ```
 
 ### 6. 테스트 규칙

@@ -1,36 +1,119 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { areas } from '../../components/AreaData';
 import ReturnHeader from '../../components/ReturnHeader';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
+    const [userData, setUserData] = useState({
+        id: '', 
+        email: '',
+        username: '', // userName을 username으로 변경
+        birthDate: '',
+        phoneNumber: '',
+        addressState: '', // selectedDo -> addressState
+        addressCity: ''   // selectedSiGunGu -> addressCity
+    });
 
-    const [selectedDo, setSelectedDo] = useState(""); // 도 선택 상태
-    const [selectedSiGunGu, setSelectedSiGunGu] = useState(""); // 시/군/구 선택 상태
-    const [isAllChecked, setIsAllChecked] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const accessToken = Cookies.get('access_token');
+            if (accessToken) {
+                try {
+                    const response = await axios.get('http://localhost:8080/api/users/me', {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        },
+                    });
 
-    // 선택한 도에 따라 시/군/구 목록 설정
-    const handleDoChange = (event) => {
-        setSelectedDo(event.target.value);
-        setSelectedSiGunGu(""); // 도가 바뀌면 시/군/구 초기화
+                    if (response.status === 200) {
+                        const data = response.data;
+                        setUserData({
+                            id: data.id,
+                            email: data.email,
+                            username: data.username, // API에서의 username과 일치하도록 수정
+                            birthDate: data.birthDate || '',
+                            phoneNumber: data.phoneNumber || '',
+                            addressState: '', // 초기화
+                            addressCity: ''   // 초기화
+                        });
+                    } else {
+                        console.error('사용자 정보를 가져오는 데 실패했습니다.');
+                    }
+                } catch (error) {
+                    console.error('API 요청 중 오류 발생:', error);
+                }
+            }
+        };
+
+        fetchUserData();
+    }, []);
+
+    const handleStateChange = (event) => {
+        setUserData({
+            ...userData,
+            addressState: event.target.value,
+            addressCity: ''
+        });
     };
 
-    const handleSiGunGuChange = (event) => {
-        setSelectedSiGunGu(event.target.value);
+    const handleCityChange = (event) => {
+        setUserData({
+            ...userData,
+            addressCity: event.target.value
+        });
     };
-    
-    const handleLogin = () => {
-        if (isAllChecked) {
-            // 가입 로직 처리
+
+    const handleSave = async () => {
+        const accessToken = Cookies.get('access_token');
+
+        if (userData.password !== confirmPassword) {
+            alert('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+
+        if (accessToken) {
+            const updatedUserData = {
+                username: userData.username, // userName -> username으로 변경
+                email: userData.email,
+                phoneNumber: userData.phoneNumber,
+                birthDate: userData.birthDate,
+                password: userData.password,
+                address: {
+                    state: userData.addressState, // addressState 사용
+                    city: userData.addressCity, // addressCity 사용
+                    radius: 100
+                }
+            };
+
+            try {
+                const response = await axios.put(`http://localhost:8080/api/users/${userData.id}`, updatedUserData, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (response.status === 200) {
+                    alert('회원정보가 수정되었습니다.');
+                    navigate('/main');
+                } else {
+                    console.error('회원정보 수정 실패');
+                }
+            } catch (error) {
+                console.error('API 요청 중 오류 발생:', error);
+            }
         } else {
-            alert('전체 동의를 먼저 체크해주세요.');
+            console.error('Access token not found in cookies.');
         }
     };
 
-    // 선택된 도에 따라 시/군/구 목록 필터링
-    const siGunGuList = areas.find(area => area.name === selectedDo)?.subArea || [];
-
+    const cityList = areas.find(area => area.name === userData.addressState)?.subArea || [];
 
     return (
         <Container>
@@ -38,21 +121,26 @@ const EditProfile = () => {
 
             <Form>
                 <Text>이메일</Text>
-                <Input type="email" placeholder="이메일을 입력해주세요" />
+                <Input type="email" placeholder="이메일을 입력해주세요" value={userData.email} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
+
                 <Text>비밀번호</Text>
-                <Input type="password" placeholder="비밀번호를 입력해주세요" />
+                <Input type="password" placeholder="비밀번호를 입력해주세요" value={userData.password} onChange={(e) => setUserData({ ...userData, password: e.target.value })} />
+
                 <Text>비밀번호 확인</Text>
-                <Input type="password" placeholder="비밀번호 확인" />
+                <Input type="password" placeholder="비밀번호 확인" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+
                 <Text>이름</Text>
-                <Input type="text" placeholder="이름을 입력해주세요" />
+                <Input type="text" placeholder="이름을 입력해주세요" value={userData.username} onChange={(e) => setUserData({ ...userData, username: e.target.value })} />
+
                 <Text>생년월일</Text>
-                <Input type="date" defaultValue={new Date().toISOString().substring(0, 10)} />
+                <Input type="date" value={userData.birthDate} onChange={(e) => setUserData({ ...userData, birthDate: e.target.value })} />
+
                 <Text>전화번호</Text>
-                <Input type="text" placeholder="전화번호를 입력해주세요" />
+                <Input type="text" placeholder="전화번호를 입력해주세요" value={userData.phoneNumber} onChange={(e) => setUserData({ ...userData, phoneNumber: e.target.value })} />
 
                 <Text>지역 선택</Text>
                 <AreaForm>
-                    <Select value={selectedDo} onChange={handleDoChange}>
+                    <Select value={userData.addressState} onChange={handleStateChange}>
                         <option value="">도 선택</option>
                         {areas.map((area, index) => (
                             <option key={index} value={area.name}>
@@ -61,17 +149,17 @@ const EditProfile = () => {
                         ))}
                     </Select>
 
-                    <Select value={selectedSiGunGu} onChange={handleSiGunGuChange} disabled={!selectedDo}>
+                    <Select value={userData.addressCity} onChange={handleCityChange} disabled={!userData.addressState}>
                         <option value="">시/군/구 선택</option>
-                        {siGunGuList.map((subArea, index) => (
+                        {cityList.map((subArea, index) => (
                             <option key={index} value={subArea}>
                                 {subArea}
                             </option>
                         ))}
                     </Select>
                 </AreaForm>
-                <Button onClick={handleLogin}>수정하기</Button>
-                <Button onClick={handleLogin}>취소</Button>
+                <Button onClick={handleSave}>수정하기</Button>
+                <Button onClick={() => alert('취소되었습니다.')}>취소</Button>
             </Form>
 
             <NonBlock />
@@ -79,11 +167,11 @@ const EditProfile = () => {
     );
 };
 
+// 스타일 컴포넌트들 정의
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
   justify-content: space-between;
   height: 100vh;
   background-color: #f7f7f7;
@@ -122,7 +210,7 @@ const AreaForm = styled.div`
     flex-direction: row;
     width: 300px;
     margin-bottom: 5px;
-`
+`;
 
 const Select = styled.select`
     width: 100%;
@@ -150,45 +238,10 @@ const Button = styled.button`
     }
 `;
 
-const CheckBoxContainer = styled.div`
-    display: flex;
-    align-items: center;
-    width: 100%;
-`;
-
-const Checkbox = styled.input`
-    margin-right: 10px;
-`;
-
-const LabelContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-`;
-
-const Label = styled.label`
-    font-size: 14px;
-    color: #333;
-`;
-
-const DetailButton = styled.button`
-    background: none;
-    border: none;
-    color: #007bff;
-    cursor: pointer;
-    margin-left: 5px;
-    padding: 0;
-
-    &:hover {
-        text-decoration: underline;
-    }
-`;
-
 const NonBlock = styled.div`
     width: 30px;
     height: 30px;
     border: none;
 `;
-
 
 export default EditProfile;
