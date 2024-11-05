@@ -6,11 +6,10 @@ import Header from './Header';
 import AdPage from './AdPage';
 import Footer from './Footer';
 import NoTeam from './NoTeam';
-import TeamInfo from './TeamInfo';
+import TeamInfo2 from './TeamInfo2';
 import HorizonLine from '../../components/HorizonLine';
-import Footer0 from './Footer0';
 
-export default function Main() {
+export default function Main3() {
 
   useEffect(() => {
     // 쿠키 값 확인
@@ -46,7 +45,7 @@ export default function Main() {
         <HorizonLine />
 
         <MatchScheduleContainer>
-          <NoTeam/>
+          <TeamInfo2/>
           {/* {hasTeam ? (
             <TeamInfo /> // 팀이 있을 경우 보여줄 컴포넌트
           ) : (
@@ -54,7 +53,7 @@ export default function Main() {
           )} */}
         </MatchScheduleContainer>
 
-        <Footer0 />
+        <Footer />
       </MainContainer>
     </div>
   );

@@ -1,31 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom'; // useNavigate 추가
-import HorizonLine from '../components/HorizonLine';
 
-const TournamentTeamInfo = () => {
-    const navigate = useNavigate(); // useNavigate 훅 사용
-    const teamName = "NULL";
-    const teamRank = 8;
+const AfterTeamInfo = ({ /*teamName, teamRank, nextMatch, members*/ }) => {
+
+    const teamName = "우리a 팀";
+    const teamRank = 3;
 
     const nextMatch = {
-        opponentTeam: '사자FC',
+        opponentTeam: '너네 팀',
         day: '토요일',
         time: '오후 3시',
         location: '서울 경기장',
-        leagueLevel: 8 // 여기에 강의 레벨을 추가
     };
 
-    const lastMatch = {
-        opponentTeam: '히어로FC',
-        score: '승 - 패',
-        date: '지난 주 금요일',
-    };
-
-    const handleButtonClick = () => {
-        // 경기하러 가기 버튼 클릭 시 TournamentScore 페이지로 이동
-        navigate('/leagueMain/TournamentScore');
-    };
+    const members = [
+        { name: '홍길동', age: 25, gender: '남' },
+        { name: '김영희', age: 23, gender: '여' },
+        { name: '박철수', age: 30, gender: '남' },
+        { name: '홍길동', age: 25, gender: '남' },
+        { name: '김영희', age: 23, gender: '여' },
+        { name: '박철수', age: 30, gender: '남' },
+        { name: '홍길동', age: 25, gender: '남' },
+        { name: '김영희', age: 23, gender: '여' },
+        { name: '박철수', age: 30, gender: '남' },
+        { name: '홍길동', age: 25, gender: '남' },
+        { name: '김영희', age: 23, gender: '여' },
+        { name: '박철수', age: 30, gender: '남' },
+    ];
 
     return (
         <TeamContainer>
@@ -35,9 +36,7 @@ const TournamentTeamInfo = () => {
             </TeamInfoContainer>
 
             <MatchInfo>
-                <MatchTitle>
-                    다음 경기 일정 ({nextMatch.leagueLevel}강) {/* 여기에서 N을 leagueLevel로 변경 */}
-                </MatchTitle>
+                <MatchTitle>다음 경기 일정</MatchTitle>
 
                 <MatchContainer>
                     <MatchTeamContainer>
@@ -51,26 +50,22 @@ const TournamentTeamInfo = () => {
                         <MatchDetail>장소: {nextMatch.location}</MatchDetail>
                     </MatchInfoContainer>
                 </MatchContainer>
-                <GoMatch onClick={handleButtonClick}>경기하러 가기</GoMatch>
             </MatchInfo>
 
-            <HorizonLine />
-
-            <MatchInfo>
-                <MatchTitle>이전 경기 결과</MatchTitle>
-
-                <MatchContainer>
-                    <MatchTeamContainer>
-                        <MatchDetail>{teamName}</MatchDetail>
-                        <MatchDetail> {lastMatch.score} </MatchDetail>
-                        <MatchDetail>{lastMatch.opponentTeam}</MatchDetail>
-                    </MatchTeamContainer>
-                    <MatchInfoContainer>
-                        <MatchDetail>날짜: {lastMatch.date}</MatchDetail>
-                    </MatchInfoContainer>
-                </MatchContainer>
-            </MatchInfo>
+            <MembersInfo>
+                <MembersTitle>팀원들</MembersTitle>
+                <MembersList>
+                    {members.map((member, index) => (
+                        <Member key={index}>
+                            <span>이름: {member.name}</span>
+                            <span>나이: {member.age}</span>
+                            <span>성별: {member.gender}</span>
+                        </Member>
+                    ))}
+                </MembersList>
+            </MembersInfo>
         </TeamContainer>
+
     );
 }
 
@@ -84,7 +79,7 @@ const TeamContainer = styled.div`
 
 const TeamInfoContainer = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction : row ;
     justify-content: space-between;
     align-items: center;
     margin: 10px;
@@ -114,10 +109,9 @@ const MatchTitle = styled.h3`
 `;
 
 const MatchContainer = styled.div`
-    border-radius: 6px;
+    border-radius  : 6px;
     padding: 0 10px;
     background-color: #cecece;
-    margin-bottom: 10px; /* 이전 경기와 다음 경기 간의 간격을 위한 여백 */
 `;
 
 const MatchTeamContainer = styled.div`
@@ -138,20 +132,36 @@ const MatchDetail = styled.p`
     margin: 5px 0;
 `;
 
-const GoMatch = styled.button`
-    margin-bottom: 10px;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #4caf50;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-
-    &:hover {
-        background-color: #409543;
-    }
+const MembersInfo = styled.div`
+    flex-grow: 1;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 0 10px;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
 `;
 
-export default TournamentTeamInfo;
+const MembersTitle = styled.h3`
+    font-size: 1.3rem;
+    margin: 10px 0;
+`;
+
+const MembersList = styled.div`
+    flex-grow: 1;
+    overflow-y: auto;
+    height: 0px;
+`;
+
+const Member = styled.p`
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 7vh;
+    margin: 5px 0;
+    border-radius: 6px;
+    padding: 0 10px;
+    background-color: #cecece;
+`;
+
+export default AfterTeamInfo;

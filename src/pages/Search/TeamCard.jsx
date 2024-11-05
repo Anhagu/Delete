@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const TeamCard = ({ name, members, region, gender }) => {
+  const navigate = useNavigate();
   return (
     <TeamContainer>
       <TeamInfo>
@@ -15,9 +17,16 @@ const TeamCard = ({ name, members, region, gender }) => {
           <TeamGender>{gender}</TeamGender>
         </LPGContainer>
       </TeamInfo>
-      <JoinBtn>
+      {/* <JoinBtn>
         가입하기
-      </JoinBtn>
+      </JoinBtn> */}
+      <JoinBtn onClick={() => {
+                    const confirmWithdrawal = window.confirm('팀에 가입하시겠습니까?');
+                    if (confirmWithdrawal) {  // 팀 생성 로직을 실행
+                        alert('가입되었습니다.');
+                        navigate('/Main3');  // 페이지 이동
+                    }
+                }}>가입하기</JoinBtn>
     </TeamContainer>
   );
 };

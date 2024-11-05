@@ -1,27 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TeamInfo = ({ /*teamName, teamRank, nextMatch, members*/ }) => {
+const TeamInfo2 = ({ /*teamName, teamRank, nextMatch, members*/ }) => {
 
-    const teamName = "NULL";
-    // const teamRank = 3;
+    const teamName = "파이팅FC";
+    const teamRank = 8;
 
     const nextMatch = {
-        opponentTeam: '매칭 되지 않음',
+        opponentTeam: '사자FC',
         day: '토요일',
         time: '오후 3시',
         location: '서울 경기장',
     };
 
     const members = [
-        { name: 'NULL', age: 24, gender: '남' },
+        { name: '이준호', age: 27, gender: '남' },
+        { name: '김민수', age: 24, gender: '남' },
+        { name: '박지훈', age: 31, gender: '남' },
+        { name: '최영수', age: 29, gender: '남' },
+        { name: '정우성', age: 36, gender: '남' },
+        { name: '안재현', age: 22, gender: '남' },
+        { name: '조성민', age: 28, gender: '남' },
+        { name: '유재석', age: 35, gender: '남' },
+        { name: '이상민', age: 30, gender: '남' },
+        { name: '서민석', age: 25, gender: '남' },
+        { name: '김태형', age: 32, gender: '남' },
+        { name: '홍성호', age: 27, gender: '남' },
+        { name: '이동준', age: 21, gender: '남' },
+        { name: '최민수', age: 38, gender: '남' },
+        { name: '정대현', age: 23, gender: '남' },
+        { name: '이상호', age: 34, gender: '남' },
+        { name: '신재원', age: 26, gender: '남' },
+        { name: '한재욱', age: 33, gender: '남' },
     ];
 
     return (
         <TeamContainer>
             <TeamInfoContainer>
                 <TeamName>{teamName}</TeamName>
-                <TeamRank>팀 순위: 순위 없음</TeamRank>
+                <TeamRank>팀 순위: {teamRank}위</TeamRank>
             </TeamInfoContainer>
 
             <MatchInfo>
@@ -33,11 +50,11 @@ const TeamInfo = ({ /*teamName, teamRank, nextMatch, members*/ }) => {
                         <MatchDetail> vs </MatchDetail>
                         <MatchDetail>{nextMatch.opponentTeam}</MatchDetail>
                     </MatchTeamContainer>
-                    {/* <MatchInfoContainer>
+                    <MatchInfoContainer>
                         <MatchDetail>요일: {nextMatch.day}</MatchDetail>
                         <MatchDetail>시간: {nextMatch.time}</MatchDetail>
                         <MatchDetail>장소: {nextMatch.location}</MatchDetail>
-                    </MatchInfoContainer> */}
+                    </MatchInfoContainer>
                 </MatchContainer>
             </MatchInfo>
 
@@ -153,4 +170,4 @@ const Member = styled.p`
     background-color: #cecece;
 `;
 
-export default TeamInfo;
+export default TeamInfo2;

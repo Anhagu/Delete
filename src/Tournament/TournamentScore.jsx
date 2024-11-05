@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import ReturnHeader from '../components/ReturnHeader';
+import { useNavigate } from 'react-router-dom';
 
 const TournamentScore = () => {
+
+  const navigate = useNavigate();
+
   const [isMatchStarted, setIsMatchStarted] = useState(false);
   const [currentSet, setCurrentSet] = useState(1);
-  const [sets, setSets] = useState(3);
+  const [sets, setSets] = useState(2);
   const [timePerSet, setTimePerSet] = useState(5); // minutes
   const [timeLeft, setTimeLeft] = useState(0);
   const [teamAScore, setTeamAScore] = useState(0);
@@ -35,7 +39,6 @@ const TournamentScore = () => {
   };
 
   const handleEndSet = () => {
-    // 현재 세트 점수 기록
     const newSetScore = { set: currentSet, scoreA: teamAScore, scoreB: teamBScore };
     setSetScores((prevScores) => [...prevScores, newSetScore]);
     
@@ -43,7 +46,7 @@ const TournamentScore = () => {
       setCurrentSet((prev) => prev + 1);
       setTimeLeft(timePerSet * 60);
       if (resetScores) {
-        setTeamAScore(0); // 점수 초기화
+        setTeamAScore(0);
         setTeamBScore(0);
       }
       setIsSetStarted(false);
@@ -73,9 +76,16 @@ const TournamentScore = () => {
     }
   };
 
+  const handleSaveResult = () => {
+    // 결과 저장 로직을 구현하세요
+    alert('결과가 저장되었습니다.');
+    navigate('/Main4');
+
+  };
+
   return (
     <Container>
-        <ReturnHeader text="점수판"/>
+      <ReturnHeader text="점수판"/>
       <SettingsContainer>
         <Settings>
           <label>세트 수 설정</label>
@@ -100,15 +110,15 @@ const TournamentScore = () => {
         </Settings>
       </SettingsContainer>
 
-        <ScoreSettings>
-          <label>세트 종료 후 점수 초기화</label>
-          <input
-            type="checkbox"
-            checked={resetScores}
-            onChange={(e) => setResetScores(e.target.checked)}
-            disabled={isMatchEnded}
-          />
-        </ScoreSettings>
+      <ScoreSettings>
+        <label>세트 종료 후 점수 초기화</label>
+        <input
+          type="checkbox"
+          checked={resetScores}
+          onChange={(e) => setResetScores(e.target.checked)}
+          disabled={isMatchEnded}
+        />
+      </ScoreSettings>
 
       <Timer>
         세트: {currentSet} / {sets}, 시간: {Math.floor(timeLeft / 60)}:{timeLeft % 60 < 10 ? `0${timeLeft % 60}` : timeLeft % 60}
@@ -116,7 +126,7 @@ const TournamentScore = () => {
 
       <MatchContainer>
         <TeamSection>
-          <TeamName>팀 A</TeamName>
+          <TeamName>NULL</TeamName>
           <Score>{teamAScore}</Score>
           <div>
             <Button onClick={() => adjustScore('A', 1)} disabled={!isSetStarted}>
@@ -129,7 +139,7 @@ const TournamentScore = () => {
         </TeamSection>
 
         <TeamSection>
-          <TeamName>팀 B</TeamName>
+          <TeamName>사자FC</TeamName>
           <Score>{teamBScore}</Score>
           <div>
             <Button onClick={() => adjustScore('B', 1)} disabled={!isSetStarted}>
@@ -149,18 +159,20 @@ const TournamentScore = () => {
       </ControlPanel>
 
       {isMatchEnded && (
-        <FinalScore>
-          최종 점수: 팀 A {teamAScore} - 팀 B {teamBScore}
-          <div>{winner === 'A' ? '팀 A 승!' : winner === 'B' ? '팀 B 승!' : '무승부!'}</div>
-        </FinalScore>
+        <>
+          <FinalScore>
+            최종 점수: NULL {teamAScore} - 사자FC {teamBScore}
+            <div>{winner === 'A' ? '팀 A 승!' : winner === 'B' ? '팀 B 승!' : '무승부!'}</div>
+          </FinalScore>
+          <SaveButton onClick={handleSaveResult}>결과 저장하기</SaveButton>
+        </>
       )}
 
-      {/* 각 세트 점수 출력 */}
       <ScoreBoard>
         <h3>세트별 점수 기록</h3>
         {setScores.map((score, index) => (
           <ScoreEntry key={index}>
-            {score.set}세트: 팀 A {score.scoreA} - 팀 B {score.scoreB}
+            {score.set}세트: NULL {score.scoreA} - 사자FC {score.scoreB}
           </ScoreEntry>
         ))}
       </ScoreBoard>
@@ -244,7 +256,7 @@ const Settings = styled.div`
 `;
 
 const ScoreSettings = styled.div`
-    margin: 0 20px;
+  margin: 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -278,16 +290,17 @@ const FinalScore = styled.div`
 `;
 
 const ScoreBoard = styled.div`
-  margin-top: 20px;
-  width: 80%;
-  border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 10px;
+  margin: 20px;
+  text-align: center;
 `;
 
 const ScoreEntry = styled.div`
-  font-size: 20px;
-  margin: 5px 0;
+  font-size: 18px;
+`;
+
+const SaveButton = styled(Button)`
+  background-color: #4caf50;
+  width: 50%;
 `;
 
 export default TournamentScore;

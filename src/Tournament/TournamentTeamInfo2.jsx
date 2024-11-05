@@ -1,30 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom'; // useNavigate 추가
+import { useNavigate } from 'react-router-dom';
 import HorizonLine from '../components/HorizonLine';
 
-const TournamentTeamInfo = () => {
-    const navigate = useNavigate(); // useNavigate 훅 사용
-    const teamName = "NULL";
+const TournamentTeamInfo2 = () => {
+    const navigate = useNavigate();
+    const teamName = "파이팅FC";
     const teamRank = 8;
 
     const nextMatch = {
-        opponentTeam: '사자FC',
+        opponentTeam: '대진표 작성중',
         day: '토요일',
         time: '오후 3시',
         location: '서울 경기장',
-        leagueLevel: 8 // 여기에 강의 레벨을 추가
+        leagueLevel: 6
     };
 
-    const lastMatch = {
-        opponentTeam: '히어로FC',
-        score: '승 - 패',
-        date: '지난 주 금요일',
-    };
+    const lastMatches = [
+        {
+            opponentTeam: '사자FC',
+            score: '승 - 패',
+            date: '오늘',
+        },
+        {
+            opponentTeam: '히어로FC',
+            score: '승 - 패',
+            date: '지난주 금요일',
+        }
+    ];
 
     const handleButtonClick = () => {
-        // 경기하러 가기 버튼 클릭 시 TournamentScore 페이지로 이동
-        navigate('/leagueMain/TournamentScore');
+        alert("대진표를 작성중입니다.\n다른 팀의 경기 종료를 기다려주세요");
     };
 
     return (
@@ -36,7 +42,7 @@ const TournamentTeamInfo = () => {
 
             <MatchInfo>
                 <MatchTitle>
-                    다음 경기 일정 ({nextMatch.leagueLevel}강) {/* 여기에서 N을 leagueLevel로 변경 */}
+                    다음 경기 일정 ({nextMatch.leagueLevel}강)
                 </MatchTitle>
 
                 <MatchContainer>
@@ -45,11 +51,6 @@ const TournamentTeamInfo = () => {
                         <MatchDetail> vs </MatchDetail>
                         <MatchDetail>{nextMatch.opponentTeam}</MatchDetail>
                     </MatchTeamContainer>
-                    <MatchInfoContainer>
-                        <MatchDetail>요일: {nextMatch.day}</MatchDetail>
-                        <MatchDetail>시간: {nextMatch.time}</MatchDetail>
-                        <MatchDetail>장소: {nextMatch.location}</MatchDetail>
-                    </MatchInfoContainer>
                 </MatchContainer>
                 <GoMatch onClick={handleButtonClick}>경기하러 가기</GoMatch>
             </MatchInfo>
@@ -59,16 +60,18 @@ const TournamentTeamInfo = () => {
             <MatchInfo>
                 <MatchTitle>이전 경기 결과</MatchTitle>
 
-                <MatchContainer>
-                    <MatchTeamContainer>
-                        <MatchDetail>{teamName}</MatchDetail>
-                        <MatchDetail> {lastMatch.score} </MatchDetail>
-                        <MatchDetail>{lastMatch.opponentTeam}</MatchDetail>
-                    </MatchTeamContainer>
-                    <MatchInfoContainer>
-                        <MatchDetail>날짜: {lastMatch.date}</MatchDetail>
-                    </MatchInfoContainer>
-                </MatchContainer>
+                {lastMatches.map((match, index) => (
+                    <MatchContainer key={index}>
+                        <MatchTeamContainer>
+                            <MatchDetail>{teamName}</MatchDetail>
+                            <MatchDetail> {match.score} </MatchDetail>
+                            <MatchDetail>{match.opponentTeam}</MatchDetail>
+                        </MatchTeamContainer>
+                        <MatchInfoContainer>
+                            <MatchDetail>날짜: {match.date}</MatchDetail>
+                        </MatchInfoContainer>
+                    </MatchContainer>
+                ))}
             </MatchInfo>
         </TeamContainer>
     );
@@ -117,7 +120,7 @@ const MatchContainer = styled.div`
     border-radius: 6px;
     padding: 0 10px;
     background-color: #cecece;
-    margin-bottom: 10px; /* 이전 경기와 다음 경기 간의 간격을 위한 여백 */
+    margin-bottom: 10px;
 `;
 
 const MatchTeamContainer = styled.div`
@@ -154,4 +157,4 @@ const GoMatch = styled.button`
     }
 `;
 
-export default TournamentTeamInfo;
+export default TournamentTeamInfo2;

@@ -6,7 +6,7 @@ import LeagueIcon from '@mui/icons-material/Stadium';
 import TeamIcon from '@mui/icons-material/Group';
 import MyPageIcon from '@mui/icons-material/Settings';
 
-export default function Footer() {
+export default function Footer2() {
   const navigate = useNavigate();
 
   const onNavigate = (path) => {
@@ -15,12 +15,12 @@ export default function Footer() {
 
   return (
     <FooterContainer>
-      <FooterItem onClick={() => onNavigate('/Main3')}><HomeIcon/>홈</FooterItem>
-      <FooterItem onClick={() => onNavigate('/leagueMain')}><LeagueIcon/>리그</FooterItem>
-      <FooterItem onClick={() => onNavigate('/Search')}><TeamIcon/>팀</FooterItem>
+      <FooterItem onClick={() => onNavigate('/Main4')}><HomeIcon/>홈</FooterItem>
+      <FooterItem onClick={() => onNavigate('/leagueMain2')}><LeagueIcon/>리그</FooterItem>
+      <FooterItem onClick={() => onNavigate('/Search4')}><TeamIcon/>팀</FooterItem>
       <FooterItem onClick={() => onNavigate('/EditProfile')}><MyPageIcon/>설정</FooterItem>
     </FooterContainer>
-  );
+  );    
 }
 
 const FooterContainer = styled.div`

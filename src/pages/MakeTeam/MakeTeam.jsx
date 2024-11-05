@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { areas } from '../../components/AreaData';
 import ReturnHeader from '../../components/ReturnHeader';
+import { useNavigate } from 'react-router-dom';
 
 const MakeTeam = () => {
+    const navigate = useNavigate();
 
     const [teamName, setTeamName] = useState("");   // 팀 명
 
     const [teamStadium, setTeamStadium] = useState(""); // 팀 경기장
     const [teamStadiumDo, setTeamStadiumDo] = useState(""); // 팀 경기장 도
     const [teamStadiumSiGunGu, setTeamStadiumSiGunGu] = useState(""); // 팀 경기장 시/군/구
-    
+
     const [teamLocationDo, setTeamLocationDo] = useState(""); // 도 선택 상태
     const [teamLocationSiGunGu, setTeamLocationSiGunGu] = useState(""); // 시/군/구 선택 상태
 
@@ -26,10 +28,10 @@ const MakeTeam = () => {
     const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
     useEffect(() => {
-        if(
+        if (
             teamName &&
-            teamStadium && 
-            teamStadiumDo && 
+            teamStadium &&
+            teamStadiumDo &&
             teamStadiumSiGunGu &&
             teamLocationDo &&
             teamLocationSiGunGu &&
@@ -69,9 +71,9 @@ const MakeTeam = () => {
     };
 
     // 연령
-    const handleTeamAge = (e) =>{
-        const {value, checked} = e.target;
-        setTeamAge((prev) => 
+    const handleTeamAge = (e) => {
+        const { value, checked } = e.target;
+        setTeamAge((prev) =>
             checked ? [...prev, value] : prev.filter((age) => age !== value));
     }
 
@@ -82,8 +84,8 @@ const MakeTeam = () => {
 
     // 팀원 레벨
     const handleMemeberLevel = (e) => {
-        const {value, checked} = e.target;
-        setMemberLevel((prev) => 
+        const { value, checked } = e.target;
+        setMemberLevel((prev) =>
             checked ? [...prev, value] : prev.filter((level) => level !== value));
     }
 
@@ -97,8 +99,8 @@ const MakeTeam = () => {
 
     // 팀 활동 요일
     const handleActivityDay = (e) => {
-        const {value, checked} = e.target;
-        setActivityDay((prev) => 
+        const { value, checked } = e.target;
+        setActivityDay((prev) =>
             checked ? [...prev, value] : prev.filter((day) => day !== value));
     }
 
@@ -106,10 +108,10 @@ const MakeTeam = () => {
     const handleStartTime = (e) => setStartTime(e.target.value);
     const handleEndTime = (e) => setEndTime(e.target.value);
 
-    
+
     // 팀 생성 버튼 클릭 시 입력값을 저장하는 로직
     const handleCreate = () => {
-        if(!isButtonEnabled) return;
+        if (!isButtonEnabled) return;
 
         const teamData = {
             teamName,
@@ -138,25 +140,25 @@ const MakeTeam = () => {
 
             <Form>
                 <Text>팀 이름</Text>
-                <Input 
-                    type="text" 
-                    placeholder="팀 이름 입력" 
+                <Input
+                    type="text"
+                    placeholder="팀 이름 입력"
                     value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}    
+                    onChange={(e) => setTeamName(e.target.value)}
                 />
 
                 <Text>경기장</Text>
-                <Input 
-                    type="text" 
-                    placeholder="경기장 이름 입력" 
+                <Input
+                    type="text"
+                    placeholder="경기장 이름 입력"
                     value={teamStadium}
                     onChange={(e) => setTeamStadium(e.target.value)}
                 />
 
                 <Text>경기장 지역</Text>
                 <AreaForm>
-                    <Select 
-                        value={teamStadiumDo} 
+                    <Select
+                        value={teamStadiumDo}
                         onChange={handleStadiumDo}
                     >
                         <option value="">도 선택</option>
@@ -167,9 +169,9 @@ const MakeTeam = () => {
                         ))}
                     </Select>
 
-                    <Select 
-                        value={teamStadiumSiGunGu} 
-                        onChange={handleStadiumSiGunGu} 
+                    <Select
+                        value={teamStadiumSiGunGu}
+                        onChange={handleStadiumSiGunGu}
                         disabled={!teamStadiumDo}
                     >
                         <option value="">시/군/구 선택</option>
@@ -180,12 +182,12 @@ const MakeTeam = () => {
                         ))}
                     </Select>
                 </AreaForm>
-                    
+
 
                 <Text>팀 활동 지역</Text>
                 <AreaForm>
-                    <Select 
-                        value={teamLocationDo} 
+                    <Select
+                        value={teamLocationDo}
                         onChange={handleLocationDo}
                     >
                         <option value="">도 선택</option>
@@ -196,9 +198,9 @@ const MakeTeam = () => {
                         ))}
                     </Select>
 
-                    <Select 
-                        value={teamLocationSiGunGu} 
-                        onChange={handleLocationSiGunGu} 
+                    <Select
+                        value={teamLocationSiGunGu}
+                        onChange={handleLocationSiGunGu}
                         disabled={!teamLocationDo}
                     >
                         <option value="">시/군/구 선택</option>
@@ -212,9 +214,9 @@ const MakeTeam = () => {
 
                 <Text>팀 연령</Text>
                 <CheckBoxContainer>
-                    {['연령 무관', '10-20대', '20-30대', '30-40대', '40-50대'].map((age, index)=>(
+                    {['연령 무관', '10-20대', '20-30대', '30-40대', '40-50대'].map((age, index) => (
                         <ContainerBox key={index}>
-                            <Checkbox 
+                            <Checkbox
                                 type='checkbox'
                                 value={age}
                                 onChange={handleTeamAge}
@@ -224,7 +226,7 @@ const MakeTeam = () => {
                         </ContainerBox>
                     ))}
                 </CheckBoxContainer>
-                
+
                 <Text>성별</Text>
                 <Select
                     value={teamGender}
@@ -236,42 +238,42 @@ const MakeTeam = () => {
                 </Select>
 
                 <Text>희망 팀원 숙련도</Text>
-                    <CheckBoxContainer>
-                        {['실력 무관', '아마추어', '세미프로', '프로'].map((level,index) => (
-                            <ContainerBox key={index} >
-                                <Checkbox 
-                                    type='checkbox'
-                                    value={level}
-                                    onChange={handleMemeberLevel}
-                                    checked={memberLevel.includes(level)}
-                                />
-                                <Label>{level}</Label>
-                            </ContainerBox>
-                        ))}
-                    </CheckBoxContainer>
+                <CheckBoxContainer>
+                    {['실력 무관', '아마추어', '세미프로', '프로'].map((level, index) => (
+                        <ContainerBox key={index} >
+                            <Checkbox
+                                type='checkbox'
+                                value={level}
+                                onChange={handleMemeberLevel}
+                                checked={memberLevel.includes(level)}
+                            />
+                            <Label>{level}</Label>
+                        </ContainerBox>
+                    ))}
+                </CheckBoxContainer>
 
 
                 <Text>팀 레벨</Text>
                 <RangeBoxContainer>
-                        {['공격(Attack)', '패스(Pass)', '드리블(Dribble)','신체(Physical)',
-                            '방어(Defense)', '슛팅(Shoot)', '스피드(Speed)','체력(Stamina)'].map((level,index) =>(
-                        <ContainerBox key={index}>
-                            <Label>{level} : {teamLevel[index]}</Label>
-                            <RangeBox>
-                                <RangeInput
-                                    type='range'
-                                    min='0'
-                                    max='10'
-                                    value={teamLevel[index]}
-                                    onChange={(e) => handleTeamLevel(index, e.target.value)}
-                                />
-                                <RangeNumber>
-                                    {Array.from({length:11}, (_, i) => (
-                                        <span key={i}>{i}</span>
-                                    ))}
-                                </RangeNumber>
-                            </RangeBox>
-                        </ContainerBox>
+                    {['공격(Attack)', '패스(Pass)', '드리블(Dribble)', '신체(Physical)',
+                        '방어(Defense)', '슛팅(Shoot)', '스피드(Speed)', '체력(Stamina)'].map((level, index) => (
+                            <ContainerBox key={index}>
+                                <Label>{level} : {teamLevel[index]}</Label>
+                                <RangeBox>
+                                    <RangeInput
+                                        type='range'
+                                        min='0'
+                                        max='10'
+                                        value={teamLevel[index]}
+                                        onChange={(e) => handleTeamLevel(index, e.target.value)}
+                                    />
+                                    <RangeNumber>
+                                        {Array.from({ length: 11 }, (_, i) => (
+                                            <span key={i}>{i}</span>
+                                        ))}
+                                    </RangeNumber>
+                                </RangeBox>
+                            </ContainerBox>
                         ))}
                 </RangeBoxContainer>
 
@@ -280,7 +282,7 @@ const MakeTeam = () => {
                 <CheckBoxContainer>
                     {['월', '화', '수', '목', '금', '토', '일'].map((day, index) => (
                         <ContainerBox key={index}>
-                            <Checkbox 
+                            <Checkbox
                                 type='checkbox'
                                 value={day}
                                 onChange={handleActivityDay}
@@ -290,22 +292,31 @@ const MakeTeam = () => {
                         </ContainerBox>
                     ))}
                 </CheckBoxContainer>
-                
+
                 <Text>팀 활동 시간</Text>
                 <ContainerBox>
-                    <Input 
+                    <Input
                         type="time"
                         value={startTime}
-                        onChange={handleStartTime}    
+                        onChange={handleStartTime}
                     />
-                    <Input 
+                    <Input
                         type="time"
                         value={endTime}
-                        onChange={handleEndTime}    
+                        onChange={handleEndTime}
                     />
                 </ContainerBox>
 
-                <Button onClick={handleCreate} disabled={!isButtonEnabled}>팀 생성하기</Button>
+                {/* <Button onClick={handleCreate} disabled={!isButtonEnabled}>팀 생성하기</Button> */}
+                <Button onClick={() => {
+                    const confirmWithdrawal = window.confirm('팀을 생성하시겠습니까?');
+                    if (confirmWithdrawal) {
+                        handleCreate();  // 팀 생성 로직을 실행
+                        alert('팀이 생성되었습니다.');
+                        navigate('/Main2');  // 페이지 이동
+                    }
+                }}>팀 생성하기</Button>
+
             </Form>
         </Container>
     );
@@ -351,7 +362,7 @@ const Input = styled.input`
 const Label = styled.label`
     font-size: 14px;
     color: #333;
-`; 
+`;
 
 const AreaForm = styled.div`
     display: flex;
@@ -416,7 +427,7 @@ const ContainerBox = styled.div`
     margin-bottom: 5px;
 `;
 
-const Checkbox = styled.input.attrs({type:'checkbox'})`
+const Checkbox = styled.input.attrs({ type: 'checkbox' })`
     margin-right: 5px;
 `;
 

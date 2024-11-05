@@ -158,9 +158,17 @@ const EditProfile = () => {
                         ))}
                     </Select>
                 </AreaForm>
+                <Button onClick={() => {
+                    const confirmWithdrawal = window.confirm('팀을 탈퇴 하시겠습니까?');
+                    if (confirmWithdrawal) {  // 팀 생성 로직을 실행
+                        alert('팀에서 탈퇴 되었습니다.');
+                        navigate('/Main');  // 페이지 이동
+                    }
+                }}>팀 탈퇴하기</Button>
                 <Button onClick={handleSave}>수정하기</Button>
                 <Button onClick={() => alert('취소되었습니다.')}>취소</Button>
             </Form>
+            
 
             <NonBlock />
         </Container>

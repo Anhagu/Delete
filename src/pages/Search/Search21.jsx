@@ -4,6 +4,7 @@ import ReturnHeader from '../../components/ReturnHeader';
 import SettingFiled from '../Main/SettingFiled';
 import TeamCard from './TeamCard';
 import Footer from '../Main/Footer';
+import Footer21 from '../Main/Footer21';
 
 const teamData = [
   { name: '파이팅FC', members: '18명', region: '서울', gender: '남성' },
@@ -45,7 +46,7 @@ const Search = () => {
           />
         ))}
       </TeamCardContainer>
-      <Footer />
+      <Footer21 />
     </SearchPage>
   );
 };

@@ -3,37 +3,37 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
 
+
 const NoTeam = () => {
 
     const navigate = useNavigate();
 
     const onJoin = () => {
-        navigate('/JoinTeam');
+        navigate('/Search');
     };
 
     const onCreate = () => {
-        navigate('/CreateTeam');
+        navigate('/MakeTeam');
     };
 
 
   return (
-    <NoTeamContaienr> 팀에 가입되어 있지 않습니다
+    <NoTeamContainer> 팀에 가입되어 있지 않습니다
         <Button onClick={onJoin}>
             팀 가입하기
         </Button>
         <Button onClick={onCreate}>
             팀 만들기
         </Button>
-    </NoTeamContaienr>
+    </NoTeamContainer>
   )
 }
 
-const NoTeamContaienr = styled.div`
+const NoTeamContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    display: flex;
 `;
 
 const Button = styled.button`
